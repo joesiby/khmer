@@ -7,8 +7,7 @@
 CPPSOURCES=$(wildcard lib/*.cc lib/*.hh khmer/_khmermodule.cc)
 PYSOURCES=$(wildcard khmer/*.py scripts/*.py)
 SOURCES=$(PYSOURCES) $(CPPSOURCES) setup.py
-DEVPKGS=sphinxcontrib-autoprogram pep8==1.5.7 diff_cover \
-autopep8 pylint coverage gcovr nose screed pep257
+DEVPKGS="-r requirements-dev.txt"
 
 GCOVRURL=git+https://github.com/nschum/gcovr.git@never-executed-branches
 VERSION=$(shell git describe --tags --dirty | sed s/v//)
