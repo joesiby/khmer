@@ -1,3 +1,5 @@
+from __future__ import print_function
+from __future__ import absolute_import
 #
 # This file is part of khmer, http://github.com/ged-lab/khmer/, and is
 # Copyright (C) Michigan State University, 2009-2013. It is licensed under
@@ -11,7 +13,7 @@ from khmer import ReadParser
 from screed.fasta import fasta_iter
 import screed
 
-import khmer_tst_utils as utils
+from . import khmer_tst_utils as utils
 from nose.plugins.attrib import attr
 
 
@@ -198,7 +200,7 @@ def test_count_within_radius_simple():
     inpfile = utils.get_test_data('all-A.fa')
     ht = khmer.new_hashbits(4, 2, 2)
 
-    print ht.consume_fasta(inpfile)
+    print(ht.consume_fasta(inpfile))
     n = ht.count_kmers_within_radius('AAAA', 1)
     assert n == 1
 
@@ -389,7 +391,7 @@ def test_extract_unique_paths_1():
 
     kh.consume('AGTGGCGATG')
     x = kh.extract_unique_paths('ATGGAGAGACACAGATAGACAGGAGTGGCGATG', 10, 1)
-    print x
+    print(x)
     assert x == ['ATGGAGAGACACAGATAGACAGGAGTGGCGAT']  # all but the last k-mer
 
 
@@ -398,7 +400,7 @@ def test_extract_unique_paths_2():
 
     kh.consume('ATGGAGAGAC')
     x = kh.extract_unique_paths('ATGGAGAGACACAGATAGACAGGAGTGGCGATG', 10, 1)
-    print x
+    print(x)
     assert x == ['TGGAGAGACACAGATAGACAGGAGTGGCGATG']  # all but the 1st k-mer
 
 
@@ -408,7 +410,7 @@ def test_extract_unique_paths_3():
     kh.consume('ATGGAGAGAC')
     kh.consume('AGTGGCGATG')
     x = kh.extract_unique_paths('ATGGAGAGACACAGATAGACAGGAGTGGCGATG', 10, 1)
-    print x
+    print(x)
     # all but the 1st/last k-mer
     assert x == ['TGGAGAGACACAGATAGACAGGAGTGGCGAT']
 
@@ -422,7 +424,7 @@ def test_extract_unique_paths_4():
     kh.consume('ATAGACAGGA')
 
     x = kh.extract_unique_paths('ATGGAGAGACACAGATAGACAGGAGTGGCGATG', 10, 1)
-    print x
+    print(x)
     assert x == ['TGGAGAGACACAGATAGACAGG', 'TAGACAGGAGTGGCGAT']
 
 
@@ -496,14 +498,14 @@ def test_simple_median():
     hi = khmer.new_hashbits(6, 2, 2)
 
     (median, average, stddev) = hi.get_median_count("AAAAAA")
-    print median, average, stddev
+    print(median, average, stddev)
     assert median == 0
     assert average == 0.0
     assert stddev == 0.0
 
     hi.consume("AAAAAA")
     (median, average, stddev) = hi.get_median_count("AAAAAA")
-    print median, average, stddev
+    print(median, average, stddev)
     assert median == 1
     assert average == 1.0
     assert stddev == 0.0
@@ -524,7 +526,7 @@ def test_badget():
         hbts.get("AGCTT")
         assert 0, "this should fail"
     except ValueError as err:
-        print str(err)
+        print(str(err))
 
 
 #
@@ -562,7 +564,7 @@ def test_load_truncated_should_fail():
         hi.load(savepath)
         assert 0, "load should fail"
     except IOError as e:
-        print str(e)
+        print(str(e))
 
 
 def test_save_load_tagset_notexist():
@@ -573,7 +575,7 @@ def test_save_load_tagset_notexist():
         ht.load_tagset(outfile)
         assert 0, "this test should fail"
     except IOError as e:
-        print str(e)
+        print(str(e))
 
 
 def test_save_load_tagset_trunc():
@@ -654,7 +656,7 @@ def test_hashbits_file_version_check():
         ht.load(inpath)
         assert 0, "this should fail"
     except IOError as e:
-        print str(e)
+        print(str(e))
 
 
 def test_hashbits_file_type_check():
@@ -668,7 +670,7 @@ def test_hashbits_file_type_check():
         ht.load(savepath)
         assert 0, "this should fail"
     except IOError as e:
-        print str(e)
+        print(str(e))
 
 
 def test_stoptags_file_version_check():
@@ -680,7 +682,7 @@ def test_stoptags_file_version_check():
         ht.load_stop_tags(inpath)
         assert 0, "this should fail"
     except IOError as e:
-        print str(e)
+        print(str(e))
 
 
 def test_stoptags_ksize_check():
@@ -691,7 +693,7 @@ def test_stoptags_ksize_check():
         ht.load_stop_tags(inpath)
         assert 0, "this should fail"
     except IOError as e:
-        print str(e)
+        print(str(e))
 
 
 def test_stop_tags_filetype_check():
@@ -702,7 +704,7 @@ def test_stop_tags_filetype_check():
         ht.load_stop_tags(inpath)
         assert 0, "this should fail"
     except IOError as e:
-        print str(e)
+        print(str(e))
 
 
 def test_tagset_file_version_check():
@@ -714,7 +716,7 @@ def test_tagset_file_version_check():
         ht.load_tagset(inpath)
         assert 0, "this should fail"
     except IOError as e:
-        print str(e)
+        print(str(e))
 
 
 def test_tagset_ksize_check():
@@ -725,7 +727,7 @@ def test_tagset_ksize_check():
         ht.load_tagset(inpath)
         assert 0, "this should fail"
     except IOError as e:
-        print str(e)
+        print(str(e))
 
 
 def test_tagset_filetype_check():
@@ -736,7 +738,7 @@ def test_tagset_filetype_check():
         ht.load_tagset(inpath)
         assert 0, "this should fail"
     except IOError as e:
-        print str(e)
+        print(str(e))
 
 
 def test_bad_primes_list():
@@ -744,7 +746,7 @@ def test_bad_primes_list():
         coutingtable = khmer._Hashbits(31, ["a", "b", "c"], 1)
         assert 0, "Bad primes list should fail"
     except TypeError as e:
-        print str(e)
+        print(str(e))
 
 
 def test_consume_absentfasta_with_reads_parser():
@@ -753,12 +755,12 @@ def test_consume_absentfasta_with_reads_parser():
         presencetable.consume_fasta_with_reads_parser()
         assert 0, "this should fail"
     except TypeError as err:
-        print str(err)
+        print(str(err))
     try:
         readparser = ReadParser(utils.get_test_data('empty-file'))
         presencetable.consume_fasta_with_reads_parser(readparser)
         assert 0, "this should fail"
     except IOError as err:
-        print str(err)
+        print(str(err))
     except ValueError as err:
-        print str(err)
+        print(str(err))

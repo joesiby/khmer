@@ -1,3 +1,5 @@
+from __future__ import division
+from __future__ import absolute_import
 #
 # This file is part of khmer, http://github.com/ged-lab/khmer/, and is
 # Copyright (C) Michigan State University, 2014-2015. It is licensed under
@@ -7,20 +9,19 @@
 # pylint: disable=missing-docstring,protected-access
 
 import math
-import string
 
 import khmer
 
 from screed.fasta import fasta_iter
 
-import khmer_tst_utils as utils
+from . import khmer_tst_utils as utils
 from nose.tools import assert_raises
 
 
-TT = string.maketrans('ACGT', 'TGCA')
 K = 20  # size of kmer
 ERR_RATE = 0.01
 N_UNIQUE = 3960
+TRANSLATE = {'A': 'T', 'C': 'G', 'T': 'A', 'G': 'C'}
 
 
 def teardown():
@@ -41,7 +42,7 @@ def test_hll_add_python():
         seq_len = len(sequence)
         for n in range(0, seq_len + 1 - K):
             kmer = sequence[n:n + K]
-            rc = kmer[::-1].translate(TT)
+            rc = "".join(TRANSLATE[c] for c in kmer[::-1])
 
             hllcpp.add(kmer)
 
@@ -225,7 +226,7 @@ def test_hll_change_ksize():
     hllcpp.ksize = 24
     assert hllcpp.ksize == 24
 
-    hllcpp.ksize = 12L
+    hllcpp.ksize = 12
     assert hllcpp.ksize == 12
 
     with assert_raises(ValueError):
