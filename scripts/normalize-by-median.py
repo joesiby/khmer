@@ -169,10 +169,10 @@ def normalize_by_median_and_check(input_filename, htable, single_output_file,
         else:
             total += total_acc
             discarded += discarded_acc
-            print('DONE with {inp}; kept {kept} of {total} or {perc:2}%'\
-                .format(inp=input_filename, kept=total - discarded,
-                        total=total, perc=int(100. - discarded /
-                                              float(total) * 100.)),
+            print('DONE with {inp}; kept {kept} of {total} or {perc:2}%'
+                  .format(inp=input_filename, kept=total - discarded,
+                          total=total, perc=int(100. - discarded /
+                                                float(total) * 100.)),
                   file=sys.stderr)
             print('output in', output_name, file=sys.stderr)
 
