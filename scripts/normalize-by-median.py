@@ -289,7 +289,8 @@ def main():  # pylint: disable=too-many-branches,too-many-statements
         if (filename in filenames):
             print("WARNING: At least two input files are named %s . \
 (The script normalize-by-median.py can not handle this, only one .keep \
-file for one of the input files will be generated.)" % filename, file=sys.stderr)
+file for one of the input files will be generated.)" % filename,
+                  file=sys.stderr)
         else:
             filenames.append(filename)
 
