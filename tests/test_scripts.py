@@ -775,7 +775,10 @@ def test_normalize_by_median_force():
 
     (status, out, err) = utils.runscript(script, args, in_dir)
 
-    test_ht = khmer.load_counting_hash(corrupt_infile + '.ct.failed')
+    try:
+        test_ht = khmer.load_counting_hash(corrupt_infile + '.ct.failed')
+    except IOError as e:
+        assert 0, 'Should not produce an IOError: ' + str(e)
     test_good_read = 'CAGGCGCCCACCACCGTGCCCTCCAACCTGATGGT'
     test_good_read2 = 'TAGTATCATCAAGGTTCAAGATGTTAATGAATAACAATTGCGCAGCAA'
     assert test_ht.count(test_good_read[:17]) > 0
@@ -802,7 +805,10 @@ def test_normalize_by_median_no_bigcount():
     print(out, err)
 
     assert os.path.exists(hashfile), hashfile
-    kh = khmer.load_counting_hash(hashfile)
+    try:
+        kh = khmer.load_counting_hash(hashfile)
+    except IOError as e:
+        assert 0, 'Should not produce an IOError: ' + str(e)
 
     assert kh.get('GGTTGACG') == 255
 
@@ -825,7 +831,10 @@ def test_normalize_by_median_dumpfrequency():
 
     (status, out, err) = utils.runscript(script, args, in_dir)
 
-    test_ht = khmer.load_counting_hash(os.path.join(in_dir, 'backup.ct'))
+    try:
+        test_ht = khmer.load_counting_hash(os.path.join(in_dir, 'backup.ct'))
+    except IOError as e:
+        assert 0, 'Should not produce an IOError: ' + str(e)
     test_good_read = 'CAGGCGCCCACCACCGTGCCCTCCAACCTGATGGT'
     test_good_read2 = 'TAGTATCATCAAGGTTCAAGATGTTAATGAATAACAATTGCGCAGCAA'
     assert test_ht.count(test_good_read[:17]) > 0

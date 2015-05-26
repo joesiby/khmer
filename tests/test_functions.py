@@ -5,8 +5,8 @@
 # Contact: khmer-project@idyll.org
 #
 import khmer
-from nose.plugins.attrib import attr
 import os
+import sys
 import khmer_tst_utils as utils
 import collections
 from khmer.utils import (check_is_pair, broken_paired_reader, check_is_left,
@@ -82,7 +82,10 @@ def test_extract_countinghash_info():
         ht = khmer.new_counting_hash(25, size, 4)
         ht.save(fn)
 
-        info = khmer.extract_countinghash_info(fn)
+        try:
+            info = khmer.extract_countinghash_info(fn)
+        except ValueError as v:
+            assert 0, 'Should not throw a ValueErorr: ' + str(v)
         ksize, table_size, n_tables, _, _, _ = info
         print ksize, table_size, n_tables
 
@@ -93,7 +96,7 @@ def test_extract_countinghash_info():
         try:
             os.remove(fn)
         except OSError as e:
-            print >>sys.stder, '...failed to remove {fn}'.format(fn)
+            print >>sys.stder, '...failed to remove {fn} '.format(fn) + str(e)
 
 
 def test_extract_hashbits_info():
