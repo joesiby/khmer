@@ -6,3 +6,6 @@
 >5 byte 1 k-mer count table
 >5 byte 2 k-mer presence table
 >5 byte 3 k-mer tagset
+>5 byte 4 k-mer partition stoptags
+>5 byte 5 k-mer partition subset
+
