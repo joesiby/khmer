@@ -77,6 +77,12 @@ def test_get_primes():
 
 
 def test_extract_countinghash_info():
+    try:
+        khmer.extract_countinghash_info(
+            utils.get_test_data('test-abund-read-2.fa'))
+        assert 0, 'this should fail'
+    except ValueError:
+        pass
     fn = utils.get_temp_filename('test_extract_counting.ct')
     for size in [1e6, 2e6, 5e6, 1e7]:
         ht = khmer.new_counting_hash(25, size, 4)
@@ -100,6 +106,12 @@ def test_extract_countinghash_info():
 
 
 def test_extract_hashbits_info():
+    try:
+        khmer.extract_hashbits_info(
+            utils.get_test_data('test-abund-read-2.fa'))
+        assert 0, 'this should fail'
+    except ValueError:
+        pass
     fn = utils.get_temp_filename('test_extract_hashbits.pt')
     for size in [1e6, 2e6, 5e6, 1e7]:
         ht = khmer.Hashbits(25, size, 4)
