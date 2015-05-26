@@ -84,8 +84,8 @@ def test_extract_countinghash_info():
 
         try:
             info = khmer.extract_countinghash_info(fn)
-        except ValueError as v:
-            assert 0, 'Should not throw a ValueErorr: ' + str(v)
+        except ValueError as err:
+            assert 0, 'Should not throw a ValueErorr: ' + str(err)
         ksize, table_size, n_tables, _, _, _ = info
         print ksize, table_size, n_tables
 
@@ -95,8 +95,8 @@ def test_extract_countinghash_info():
 
         try:
             os.remove(fn)
-        except OSError as e:
-            print >>sys.stder, '...failed to remove {fn} '.format(fn) + str(e)
+        except OSError as err:
+            assert 0, '...failed to remove ' + fn + str(err)
 
 
 def test_extract_hashbits_info():
