@@ -5,3 +5,4 @@
 >4 byte x file format version %u,
 >5 byte 1 k-mer count table
 >5 byte 2 k-mer presence table
+>5 byte 3 k-mer tagset
