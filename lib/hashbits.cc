@@ -29,6 +29,7 @@ void Hashbits::save(std::string outfilename)
 
     ofstream outfile(outfilename.c_str(), ios::binary);
 
+    outfile.write(SAVED_NODEGRAPH_SIGNATURE, 14);
     unsigned char version = SAVED_FORMAT_VERSION;
     outfile.write((const char *) &version, 1);
 
@@ -90,11 +91,19 @@ void Hashbits::load(std::string infilename)
         unsigned int save_ksize = 0;
         unsigned char save_n_tables = 0;
         unsigned long long save_tablesize = 0;
+	char signature[14];
         unsigned char version, ht_type;
 
+	infile.read(signature, 14);
         infile.read((char *) &version, 1);
         infile.read((char *) &ht_type, 1);
-        if (!(version == SAVED_FORMAT_VERSION)) {
+        if (!(std::string(signature) == SAVED_NODEGRAPH_SIGNATURE)) {
+            std::ostringstream err;
+            err << "Does not start with signature for an Oxli " <<
+                "NodeGraph file: " << signature << " Should be: " <<
+                SAVED_NODEGRAPH_SIGNATURE;
+            throw khmer_file_exception(err.str());
+	} else if (!(version == SAVED_FORMAT_VERSION)) {
             std::ostringstream err;
             err << "Incorrect file format version " << (int) version
                 << " while reading k-mer graph from " << infilename

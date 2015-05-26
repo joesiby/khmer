@@ -53,6 +53,8 @@ private:\
 #   define CIRCUM_RADIUS 2	// @CTB remove
 #   define CIRCUM_MAX_VOL 200	// @CTB remove
 
+#   define SAVED_COUNTGRAPH_SIGNATURE "OXLICountGraph"
+#   define SAVED_NODEGRAPH_SIGNATURE  "OXLINodeGraph_"
 #   define SAVED_FORMAT_VERSION 4
 #   define SAVED_COUNTING_HT 1
 #   define SAVED_HASHBITS 2
