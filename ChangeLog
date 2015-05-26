@@ -1,3 +1,12 @@
+2015-05-26  Michael R. Crusoe  <mcrusoe@msu.edu>
+
+   * khmer/__init__.py,lib/{counting,hashbits}.cc,lib/khmer.hh: add signature
+   to beginning of binary file types
+   * tests/test-data/normC20k20.ct: update to new format by prepending
+   "OXLICountGraph" to the data stream
+   * tests/test_{counting_hash,functions,scripts}.py: tests should fail, not
+   error (add try, except + assert blocks)
+
 2015-05-26  Kevin Murray  <spam@kdmurray.id.au>
 
    * lib/Makefile: Remove old libkhmer.so versions during make clean
