@@ -519,8 +519,8 @@ CountingHashFileReader::CountingHashFileReader(
         infile.read((char *) &ht_type, 1);
         if (!(std::string(signature) == SAVED_COUNTGRAPH_SIGNATURE)) {
             std::ostringstream err;
-            err << "Does not start with signature for an Oxli " <<
-                "CountGraph file: " << signature << " Should be: " <<
+            err << "Does not start with signature for a khmer " <<
+                "counting table file: " << signature << " Should be: " <<
                 SAVED_COUNTGRAPH_SIGNATURE;
             throw khmer_file_exception(err.str());
         } else if (!(version == SAVED_FORMAT_VERSION)) {
@@ -633,8 +633,8 @@ CountingHashGzFileReader::CountingHashGzFileReader(
         throw khmer_file_exception(err);
     } else if (!(std::string(signature) == SAVED_COUNTGRAPH_SIGNATURE)) {
             std::ostringstream err;
-            err << "Does not start with signature for an Oxli " <<
-                "CountGraph file: " << signature << " Should be: " <<
+            err << "Does not start with signature for a khmer " <<
+                "counting table file: " << signature << " Should be: " <<
                 SAVED_COUNTGRAPH_SIGNATURE;
             throw khmer_file_exception(err.str());
     } else if (!(version == SAVED_FORMAT_VERSION)

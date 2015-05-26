@@ -99,8 +99,8 @@ void Hashbits::load(std::string infilename)
         infile.read((char *) &ht_type, 1);
         if (!(std::string(signature) == SAVED_NODEGRAPH_SIGNATURE)) {
             std::ostringstream err;
-            err << "Does not start with signature for an Oxli " <<
-                "NodeGraph file: " << signature << " Should be: " <<
+            err << "Does not start with signature for a khmer " <<
+                "presence table file: " << signature << " Should be: " <<
                 SAVED_NODEGRAPH_SIGNATURE;
             throw khmer_file_exception(err.str());
 	} else if (!(version == SAVED_FORMAT_VERSION)) {
