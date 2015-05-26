@@ -511,17 +511,17 @@ CountingHashFileReader::CountingHashFileReader(
         unsigned int save_ksize = 0;
         unsigned char save_n_tables = 0;
         unsigned long long save_tablesize = 0;
-        char signature [14];
+        char signature [4];
         unsigned char version = 0, ht_type = 0, use_bigcount = 0;
 
-        infile.read(signature, 14);
+        infile.read(signature, 4);
         infile.read((char *) &version, 1);
         infile.read((char *) &ht_type, 1);
-        if (!(std::string(signature) == SAVED_COUNTGRAPH_SIGNATURE)) {
+        if (!(std::string(signature, 4) == SAVED_SIGNATURE)) {
             std::ostringstream err;
             err << "Does not start with signature for a khmer " <<
-                "counting table file: " << signature << " Should be: " <<
-                SAVED_COUNTGRAPH_SIGNATURE;
+                "file: " << signature << " Should be: " <<
+                SAVED_SIGNATURE;
             throw khmer_file_exception(err.str());
         } else if (!(version == SAVED_FORMAT_VERSION)) {
             std::ostringstream err;
@@ -620,10 +620,10 @@ CountingHashGzFileReader::CountingHashGzFileReader(
     unsigned int save_ksize = 0;
     unsigned char save_n_tables = 0;
     unsigned long long save_tablesize = 0;
-    char signature [14];
+    char signature [4];
     unsigned char version, ht_type, use_bigcount;
 
-    int read_s = gzread(infile, signature, 14);
+    int read_s = gzread(infile, signature, 4);
     int read_v = gzread(infile, (char *) &version, 1);
     int read_t = gzread(infile, (char *) &ht_type, 1);
     if (read_s <= 0 || read_v <= 0 || read_t <= 0) {
@@ -631,11 +631,11 @@ CountingHashGzFileReader::CountingHashGzFileReader(
                           + strerror(errno);
         gzclose(infile);
         throw khmer_file_exception(err);
-    } else if (!(std::string(signature) == SAVED_COUNTGRAPH_SIGNATURE)) {
+    } else if (!(std::string(signature, 4) == SAVED_SIGNATURE)) {
         std::ostringstream err;
         err << "Does not start with signature for a khmer " <<
-            "counting table file: " << signature << " Should be: " <<
-            SAVED_COUNTGRAPH_SIGNATURE;
+            "file: " << signature << " Should be: " <<
+            SAVED_SIGNATURE;
         throw khmer_file_exception(err.str());
     } else if (!(version == SAVED_FORMAT_VERSION)
                || !(ht_type == SAVED_COUNTING_HT)) {
@@ -776,7 +776,7 @@ CountingHashFileWriter::CountingHashFileWriter(
 
     ofstream outfile(outfilename.c_str(), ios::binary);
 
-    outfile.write(SAVED_COUNTGRAPH_SIGNATURE, 14);
+    outfile.write(SAVED_SIGNATURE, 4);
     unsigned char version = SAVED_FORMAT_VERSION;
     outfile.write((const char *) &version, 1);
 
@@ -839,7 +839,7 @@ CountingHashGzFileWriter::CountingHashGzFileWriter(
         }
     }
 
-    gzwrite(outfile, SAVED_COUNTGRAPH_SIGNATURE, 14);
+    gzwrite(outfile, SAVED_SIGNATURE, 4);
     unsigned char version = SAVED_FORMAT_VERSION;
     gzwrite(outfile, (const char *) &version, 1);
 

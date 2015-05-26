@@ -1014,7 +1014,10 @@ def test_load_graph():
     tagset_file = outfile + '.tagset'
     assert os.path.exists(tagset_file), tagset_file
 
-    ht = khmer.load_hashbits(ht_file)
+    try:
+        ht = khmer.load_hashbits(ht_file)
+    except IOError as err:
+        assert 0, str(err)
     ht.load_tagset(tagset_file)
 
     # check to make sure we get the expected result for this data set
