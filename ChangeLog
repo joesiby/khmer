@@ -6,6 +6,7 @@
    "OXLICountGraph" to the data stream
    * tests/test_{counting_hash,functions,scripts}.py: tests should fail, not
    error (add try, except + assert blocks)
+   * lib/magic: new, teaches the unix `file` command about khmer file types
 
 2015-05-26  Kevin Murray  <spam@kdmurray.id.au>
 
